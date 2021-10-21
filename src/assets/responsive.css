@@ -1,0 +1,36 @@
+/* Ipad */
+@media (min-width: 740px) and (max-width: 1023px) {
+    .category .box {
+        padding-left: 0px;
+    }
+    .box a i {
+        margin-right: 2px;
+    }
+}
+
+/* Ipad Pro */
+@media (min-width: 1024px) and (max-width: 1239px) {
+    .product {
+        height: 461px;
+    }
+    .product__head {
+        height: calc(461px - 66px);
+    }
+}
+
+/* Mobile */
+@media (max-width: 739px) {
+    .category {
+        display: none;
+    }
+    .content {
+        width: 100%;
+        margin-left: 0;
+    }
+    .product {
+        height: 306px;
+    }
+    .product__head {
+        height: calc(306px - 66px);
+    }
+}
