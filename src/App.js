@@ -20,6 +20,7 @@ function App() {
         <div className="app">
           <Category />
           <Switch>
+            <Redirect exact from="/movie-trailer" to="/" />
             <Route
               path="/"
               exact
