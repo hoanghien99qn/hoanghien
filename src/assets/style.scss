@@ -308,6 +308,7 @@ a {
     justify-content: center;
 
     .page {
+        border-radius: 4px;
         padding: 12px;
         color: $text-color;
         cursor: pointer;
@@ -316,6 +317,16 @@ a {
         &:hover {
             color: $primaryColor;
         }
+    }
+    .page.active-page {
+        background-color: $bg-category;
+    }
+    .page.disabled {
+        color: #222;
+    }
+    button {
+        background: none;
+        border: none;
     }
 }
 

@@ -346,6 +346,7 @@ a {
 }
 
 .pagination .page {
+  border-radius: 4px;
   padding: 12px;
   color: #a5a8b5;
   cursor: pointer;
@@ -354,6 +355,19 @@ a {
 
 .pagination .page:hover {
   color: #06dfdb;
+}
+
+.pagination .page.active-page {
+  background-color: #22293c;
+}
+
+.pagination .page.disabled {
+  color: #222;
+}
+
+.pagination button {
+  background: none;
+  border: none;
 }
 
 .footer {
