@@ -1,12 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Pagination from '../components/Pagination';
 import Products from '../components/Products';
+import Loading from '../components/Loading';
 
 
 function Home(props) {
     const genre = props.location.id
-    console.log(genre)
+
+    const [list, setList] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+
+    const API_URL =
+        `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=${page}${genre ? "&with_genres=" + genre : ""}`;
+
+    useEffect(() => {
+        const getList = async () => {
+            try {
+                setIsLoading(true)
+                const response = await fetch(API_URL)
+                const responseJSON = await response.json()
+                setList(responseJSON.results)
+                setTotalPages(responseJSON.total_pages)
+                setIsLoading(false)
+            } catch (error) {
+                console.log(error.massage)
+            }
+        }
+        getList()
+    }, [API_URL])
+
+    const handlePageChange = (newPage) => {
+        setPage(newPage)
+    }
 
     return (
         <div className="content">
@@ -18,20 +47,9 @@ function Home(props) {
                     </div>
                 </div>
                 {/* Product */}
-                <Products genre={genre} />
+                {isLoading ? <Loading /> : <Products list={list} />}
                 {/* Pagination */}
-                <div className="pagination">
-                    <span className="prevBtn page">
-                        <i className="fas fa-chevron-left" />
-                    </span>
-                    <span className="page">1</span>
-                    <span className="page">2</span>
-                    <span className="page">...</span>
-                    <span className="page">5</span>
-                    <span className="nextBtn page">
-                        <i className="fas fa-chevron-right" />
-                    </span>
-                </div>
+                <Pagination page={page} onPageChange={handlePageChange} totalPages={totalPages} />
                 {/* Footer */}
                 <Footer />
             </div>

@@ -1,35 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Link } from 'react-router-dom';
-import Loading from './Loading';
 
 
 function Products(props) {
-    const { genre } = props
-
-    const API_URL = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1${genre ? "&with_genres=" + genre : ""}`;
     const IMG_PATH = "https://www.themoviedb.org/t/p/w220_and_h330_face";
+    const { list } = props
 
-    const [list, setList] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-    useEffect(() => {
-        const getList = async () => {
-            try {
-                const response = await fetch(API_URL)
-                const responseJSON = await response.json()
-                setList(responseJSON.results)
-                setIsLoading(false)
-            } catch (error) {
-                console.log(error.massage)
-            }
-        }
-        getList()
-    }, [API_URL])
-    // console.log(list)
     return (
         <div className="row list">
-            {isLoading ? <Loading /> : list.map(movie => (
+            {list && list.map(movie => (
                 <div key={movie.id} className="col l-2-4 m-4 c-6">
                     <Link to={`/movie/${movie.id}`}>
                         <div className="product">
