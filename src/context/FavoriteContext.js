@@ -3,8 +3,10 @@ import React, { useState, createContext } from 'react'
 export const FavoriteContext = createContext()
 
 function FavoriteContextProvider({ children }) {
+    const FAVORITE_KEY = "favoriteKey"
+    const initFavorite = JSON.parse(localStorage.getItem(FAVORITE_KEY)) || []
 
-    const [favorites, setFavorites] = useState([])
+    const [favorites, setFavorites] = useState(initFavorite)
 
     const toggleFavorite = (id) => {
         let check = favorites.find(favorite => favorite === id)
@@ -13,9 +15,9 @@ function FavoriteContextProvider({ children }) {
         } else {
             setFavorites([...favorites, id])
         }
-        // console.log(favorites)
     }
 
+    localStorage.setItem(FAVORITE_KEY, JSON.stringify(favorites))
     const FavoriteContextData = {
         favorites,
         toggleFavorite

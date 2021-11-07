@@ -35,6 +35,7 @@ function Pagination(props) {
 
             {arrPages.map(arrPage => (
                 <span
+                    key={arrPage}
                     className={`page ${page + arrPage === page ? "active-page" : ""}`}
                     onClick={() => handlePageChange(page + arrPage)}
                 >

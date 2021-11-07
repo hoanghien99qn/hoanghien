@@ -88,6 +88,14 @@ a {
   height: 60%;
 }
 
+.category a.active.no-active {
+  color: #a5a8b5;
+}
+
+.category a.active.no-active::after {
+  height: 0;
+}
+
 .category a i {
   margin-right: 16px;
 }
@@ -448,7 +456,6 @@ a {
   border-radius: 4px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/owraiceOKtSOa3t8sp3wA9K2Ox6.jpg");
 }
 
 .detail {
@@ -547,7 +554,7 @@ a {
   display: block;
 }
 
-.detail__content-summary-top-right i {
+.detail__content-summary-top-right i.icon {
   border: 1px solid #22293c;
   border-radius: 50%;
   color: #fff;
@@ -720,7 +727,7 @@ a {
   margin-top: 8px;
 }
 
-i.liked {
+i.icon.liked {
   background-color: #e05d5d;
 }
 
@@ -765,5 +772,53 @@ i.liked {
   100% {
     opacity: 1;
   }
+}
+
+.modal {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal .modal_content {
+  padding: 2rem;
+  width: 100%;
+  opacity: 0;
+  -webkit-transform: translateY(-250px);
+          transform: translateY(-250px);
+  -webkit-transition: opacity 0.6s ease, -webkit-transform 0.6s ease;
+  transition: opacity 0.6s ease, -webkit-transform 0.6s ease;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  transition: transform 0.6s ease, opacity 0.6s ease, -webkit-transform 0.6s ease;
+  position: relative;
+  left: 11%;
+  top: 5%;
+}
+
+.modal .modal_content.active {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.favorite-title {
+  padding-top: 20px;
+  font-size: 3rem;
+  color: #c8c8c8;
+}
+
+.favorite-title.no {
+  height: 400px;
 }
 /*# sourceMappingURL=style.css.map */

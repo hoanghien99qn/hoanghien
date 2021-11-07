@@ -5,10 +5,13 @@ import Recommend from './Recommend';
 import PropTypes from 'prop-types';
 import { FavoriteContext } from '../context/FavoriteContext';
 import Loading from './Loading';
+import tmdb from '../api/tmdbApi'
+import apiConfig from '../api/apiConfig'
+import Modal from './Modal';
 
 SingleMovie.propTypes = {
     id: PropTypes.string,
-};
+}
 
 SingleMovie.defaultProps = {
     id: '',
@@ -21,47 +24,65 @@ function SingleMovie(props) {
     const [movie, setMovie] = useState({})
     const [recommends, setRecommend] = useState()
     const [isLoading, setIsLoading] = useState(true)
+    const [video, setVideo] = useState()
+    const [activeVideo, setActiveVideo] = useState(false)
     let check = favorites.find(favorite => favorite === movie.id)
 
-    const API_MOVIES = `https://api.themoviedb.org/3/movie/${id}?api_key=04c35731a5ee918f014970082a0088b1&language=en-US`
-    const IMG_PATH = "https://image.tmdb.org/t/p/w300";
-    const API_RECOMMEND = `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=04c35731a5ee918f014970082a0088b1&language=en-US&page=1`
+    // const API_MOVIES = `https://api.themoviedb.org/3/movie/${id}?api_key=04c35731a5ee918f014970082a0088b1&language=en-US`
+    // const IMG_PATH = "https://image.tmdb.org/t/p/w300";
+    // const API_RECOMMEND = `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=04c35731a5ee918f014970082a0088b1&language=en-US&page=1`
 
     useEffect(() => {
         const getMovie = async () => {
             try {
-                const response = await fetch(API_MOVIES)
-                const responseJSON = await response.json()
-                setMovie(responseJSON)
+                const params = {}
+                const response = await tmdb.detail(id, { params })
+                setMovie(response)
                 setIsLoading(false)
             } catch (error) {
                 console.log(error.massage)
             }
         }
         getMovie()
-    }, [API_MOVIES])
+    }, [id])
 
     useEffect(() => {
         const getRecommends = async () => {
             try {
-                const response = await fetch(API_RECOMMEND)
-                const responseJSON = await response.json()
-                setRecommend(responseJSON.results)
+                const response = await tmdb.getRecommendations(id)
+                setRecommend(response.results)
             } catch (error) {
                 console.log(error.massage)
             }
         }
         getRecommends()
-    }, [API_RECOMMEND])
+    }, [id])
+
+    useEffect(() => {
+        const getVideo = async () => {
+            try {
+                const response = await tmdb.getVideos(id)
+                setVideo(response.results[0])
+            } catch (error) {
+                console.log(error.massage)
+            }
+        }
+        getVideo()
+    }, [id])
+
+    const handleToggleVideo = active => {
+        setActiveVideo(!activeVideo)
+    }
+
     return (
         <div className="detail-page">
             {
                 isLoading ?
                     <Loading /> :
-                    (<div className="detail-before">
+                    (<div className="detail-before" style={{ backgroundImage: `url(${apiConfig.w1920Image(movie.backdrop_path)})` }}>
                         <div className="detail">
                             <div className="detail__img">
-                                <img src={IMG_PATH + movie.poster_path} alt={movie.title} />
+                                <img src={apiConfig.w300Image(movie.poster_path)} alt={movie.title} />
                             </div>
                             <div className="detail__content">
                                 <div className="detail__content-name color-white">
@@ -97,10 +118,13 @@ function SingleMovie(props) {
                                         </div>
                                         <div className="detail__content-summary-top-right">
                                             <span className="like-movie">
-                                                <i className={`fas fa-heart ${check ? "liked" : ""}`} onClick={() => toggleFavorite(movie.id)}></i>
+                                                <i className={`icon fas fa-heart ${check ? "liked" : ""}`} onClick={() => toggleFavorite(movie.id)}></i>
                                                 <div className="detail__content-summary-top-right-icon">Add this movie to your favorite list</div>
                                             </span>
-                                            <span className="wrap-icon"><i className="fas fa-play no-bg"></i>Play Trailer</span>
+                                            <span className="wrap-icon" onClick={() => setActiveVideo(true)}><i className="icon fas fa-play no-bg"></i>
+                                                Play Trailer
+                                            </span>
+                                            <Modal video={video} active={activeVideo} toggleVideo={handleToggleVideo} />
                                         </div>
                                     </div>
                                     <div className="detail__content-summary-bottom">

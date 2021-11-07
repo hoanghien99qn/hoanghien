@@ -1,96 +1,96 @@
 const Genres = [
     {
-        pathname: "/",
+        pathname: "/home/action",
         id: 28,
         name: "Action"
     },
     {
-        pathname: "/",
+        pathname: "/home/adventure",
         id: 12,
         name: "Adventure"
     },
     {
-        pathname: "/",
+        pathname: "/home/animation",
         id: 16,
         name: "Animation"
     },
     {
-        pathname: "/",
+        pathname: "/home/comedy",
         id: 35,
         name: "Comedy"
     },
     {
-        pathname: "/",
+        pathname: "/home/crime",
         id: 80,
         name: "Crime"
     },
     {
-        pathname: "/",
+        pathname: "/home/documentary",
         id: 99,
         name: "Documentary"
     },
     {
-        pathname: "/",
+        pathname: "/home/drama",
         id: 18,
         name: "Drama"
     },
     {
-        pathname: "/",
+        pathname: "/home/family",
         id: 10751,
         name: "Family"
     },
     {
-        pathname: "/",
+        pathname: "/home/fantasy",
         id: 14,
         name: "Fantasy"
     },
     {
-        pathname: "/",
+        pathname: "/home/history",
         id: 36,
         name: "History"
     },
     {
-        pathname: "/",
+        pathname: "/home/horror",
         id: 27,
         name: "Horror"
     },
     {
-        pathname: "/",
+        pathname: "/home/music",
         id: 10402,
         name: "Music"
     },
     {
-        pathname: "/",
+        pathname: "/home/mystery",
         id: 9648,
         name: "Mystery"
     },
     {
-        pathname: "/",
+        pathname: "/home/romance",
         id: 10749,
         name: "Romance"
     },
     {
-        pathname: "/",
+        pathname: "/home/science+fiction",
         id: 878,
         name: "Science Fiction"
     },
     {
-        pathname: "/",
+        pathname: "/home/tV+movie",
         id: 10770,
         name: "TV Movie"
     },
     {
-        pathname: "/",
+        pathname: "/home/thriller",
         id: 53,
         name: "Thriller"
     },
     {
-        pathname: "/",
+        pathname: "/home/war",
         id: 10752,
         name: "War"
     },
     {
-        pathname: "/",
+        pathname: "/home/western",
         id: 37,
         name: "Western"
     }

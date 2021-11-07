@@ -21,7 +21,7 @@ function Recommend(props) {
                 {recommends && recommends.map(recommend => (
                     <div key={recommend.id} className="recommend__movie">
                         <div className="recommend__movie-banner">
-                            <Link to={`/movie/${recommend.id}`}>
+                            <Link to={`/detail/${recommend.id}`}>
                                 <img src={IMG_PATH + recommend.backdrop_path} alt={recommend.title} />
                             </Link>
                         </div>

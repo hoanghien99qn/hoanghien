@@ -82,6 +82,13 @@ a {
             height: 60%;
         }
 
+        &.active.no-active {
+            color: $text-color;
+        }
+        &.active.no-active::after {
+            height: 0;
+        }
+
         i {
             margin-right: 16px;
         }
@@ -422,7 +429,7 @@ a {
     // background-position: right -200px top;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/owraiceOKtSOa3t8sp3wA9K2Ox6.jpg");
+    // background-image: url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/owraiceOKtSOa3t8sp3wA9K2Ox6.jpg");
 }
 
 .detail {
@@ -500,7 +507,7 @@ a {
                         }
                     }
 
-                    i {
+                    i.icon {
                         border: 1px solid $bg-category;
                         border-radius: 50%;
                         color: #fff;
@@ -658,7 +665,7 @@ a {
     }
 }
 
-i.liked {
+i.icon.liked {
     background-color: rgb(224, 93, 93);
 }
 .dropdown {
@@ -692,4 +699,46 @@ i.liked {
     100% {
         opacity: 1;
     }
+}
+
+.modal {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .modal_content {
+        padding: 2rem;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(-250px);
+        transition: transform 0.6s ease, opacity 0.6s ease;
+        position: relative;
+        left: 11%;
+        top: 5%;
+        &.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+.favorite-title {
+    padding-top: 20px;
+    font-size: 3rem;
+    color: rgb(200, 200, 200);
+}
+.favorite-title.no {
+    height: 400px;
 }
