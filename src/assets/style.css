@@ -13,6 +13,10 @@ html {
   height: 100%;
 }
 
+body {
+  height: 100%;
+}
+
 ul {
   list-style: none;
   padding-left: 0;
@@ -25,6 +29,10 @@ ul {
 .setLink-width {
   display: block;
   width: 70px;
+}
+
+.hidden {
+  display: none;
 }
 
 a {
@@ -447,6 +455,10 @@ a {
   color: #06dfdb;
 }
 
+.recommend-container {
+  width: 100%;
+}
+
 .detail-before {
   width: 96%;
   height: 500px;
@@ -456,6 +468,11 @@ a {
   border-radius: 4px;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.detail-container {
+  width: 100%;
+  height: 100%;
 }
 
 .detail {
@@ -483,7 +500,7 @@ a {
 .detail__content {
   padding: 10px 16px;
   border-radius: 4px;
-  height: 500px;
+  min-height: 500px;
   margin-left: 24px;
 }
 

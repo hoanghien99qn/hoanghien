@@ -75,70 +75,72 @@ function SingleMovie(props) {
     }
 
     return (
-        <div className="detail-page">
+        <div className="detail-page row">
             {
                 isLoading ?
                     <Loading /> :
-                    (<div className="detail-before" style={{ backgroundImage: `url(${apiConfig.w1920Image(movie.backdrop_path)})` }}>
-                        <div className="detail">
-                            <div className="detail__img">
-                                <img src={apiConfig.w300Image(movie.poster_path)} alt={movie.title} />
-                            </div>
-                            <div className="detail__content">
-                                <div className="detail__content-name color-white">
-                                    <h3>{movie.title}</h3>
-                                    <p>{movie.release_date}</p>
+                    (<div className="detail-container">
+                        <div className="detail-before" style={{ backgroundImage: `url(${apiConfig.w1920Image(movie.backdrop_path)})` }}>
+                            <div className="detail">
+                                <div className="detail__img">
+                                    <img src={apiConfig.w300Image(movie.poster_path)} alt={movie.title} />
                                 </div>
-                                <div className="detail__content-summary">
-                                    <div className="detail__content-summary-top">
-                                        <div className="detail__content-summary-top-left">
-                                            <CircularProgressbar
-                                                value={movie.vote_average}
-                                                maxValue={10}
-                                                text={movie.vote_average + '/10'}
-                                                styles={{
-                                                    path: {
-                                                        stroke: `${movie.vote_average >= 7.5 ? '#21d07a' : '#c7ca2e'}`,
-                                                        strokeLinecap: 'round',
-                                                        transition: 'stroke-dashoffset 0.5s ease 0s',
-                                                    },
-                                                    trail: {
-                                                        stroke: '#053752',
-                                                        strokeLinecap: 'round',
-                                                    },
-                                                    text: {
-                                                        fill: `${movie.vote_average >= 7.5 ? '#21d07a' : '#c7ca2e'}`,
-                                                        fontSize: '22px',
-                                                    },
-                                                    background: {
-                                                        fill: `${movie.vote_average >= 7.5 ? '#21d07a' : '#c7ca2e'}`
-                                                    }
-                                                }}
-                                            />
+                                <div className="detail__content">
+                                    <div className="detail__content-name color-white">
+                                        <h3>{movie.title}</h3>
+                                        <p>{movie.release_date}</p>
+                                    </div>
+                                    <div className="detail__content-summary">
+                                        <div className="detail__content-summary-top">
+                                            <div className="detail__content-summary-top-left">
+                                                <CircularProgressbar
+                                                    value={movie.vote_average}
+                                                    maxValue={10}
+                                                    text={movie.vote_average + '/10'}
+                                                    styles={{
+                                                        path: {
+                                                            stroke: `${movie.vote_average >= 7.5 ? '#21d07a' : '#c7ca2e'}`,
+                                                            strokeLinecap: 'round',
+                                                            transition: 'stroke-dashoffset 0.5s ease 0s',
+                                                        },
+                                                        trail: {
+                                                            stroke: '#053752',
+                                                            strokeLinecap: 'round',
+                                                        },
+                                                        text: {
+                                                            fill: `${movie.vote_average >= 7.5 ? '#21d07a' : '#c7ca2e'}`,
+                                                            fontSize: '22px',
+                                                        },
+                                                        background: {
+                                                            fill: `${movie.vote_average >= 7.5 ? '#21d07a' : '#c7ca2e'}`
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className="detail__content-summary-top-right">
+                                                <span className="like-movie">
+                                                    <i className={`icon fas fa-heart ${check ? "liked" : ""}`} onClick={() => toggleFavorite(movie.id)}></i>
+                                                    <div className="detail__content-summary-top-right-icon">Add this movie to your favorite list</div>
+                                                </span>
+                                                <span className="wrap-icon" onClick={() => setActiveVideo(true)}><i className="icon fas fa-play no-bg"></i>
+                                                    Play Trailer
+                                                </span>
+                                                <Modal video={video} active={activeVideo} toggleVideo={handleToggleVideo} />
+                                            </div>
                                         </div>
-                                        <div className="detail__content-summary-top-right">
-                                            <span className="like-movie">
-                                                <i className={`icon fas fa-heart ${check ? "liked" : ""}`} onClick={() => toggleFavorite(movie.id)}></i>
-                                                <div className="detail__content-summary-top-right-icon">Add this movie to your favorite list</div>
-                                            </span>
-                                            <span className="wrap-icon" onClick={() => setActiveVideo(true)}><i className="icon fas fa-play no-bg"></i>
-                                                Play Trailer
-                                            </span>
-                                            <Modal video={video} active={activeVideo} toggleVideo={handleToggleVideo} />
+                                        <div className="detail__content-summary-bottom">
+                                            <p className="color-white">Status: {movie.status}</p>
+                                            <p className="color-white">Language: {movie.original_language}</p>
+                                            <p className="color-white">Vote Average: {movie.vote_average}</p>
+                                            <p className="color-white">Vote Count: {movie.vote_count}</p>
                                         </div>
                                     </div>
-                                    <div className="detail__content-summary-bottom">
-                                        <p className="color-white">Status: {movie.status}</p>
-                                        <p className="color-white">Language: {movie.original_language}</p>
-                                        <p className="color-white">Vote Average: {movie.vote_average}</p>
-                                        <p className="color-white">Vote Count: {movie.vote_count}</p>
+                                    <div className="detail__content-overview color-white">
+                                        <h3>Overview</h3>
+                                        <p>
+                                            {movie.overview}
+                                        </p>
                                     </div>
-                                </div>
-                                <div className="detail__content-overview color-white">
-                                    <h3>Overview</h3>
-                                    <p>
-                                        {movie.overview}
-                                    </p>
                                 </div>
                             </div>
                         </div>

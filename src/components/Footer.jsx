@@ -5,7 +5,7 @@ function Footer() {
     return (
         <footer className="footer">
             <div className="row">
-                <div className="col l-6">
+                <div className="col l-6 m-12 c-12">
                     <div className="contact">
                         <div className="sub-contact">
                             <i className="fas fa-map-marker-alt" />
@@ -25,7 +25,7 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="col l-6">
+                <div className="col l-6 m-12 c-12">
                     <div className="about-me">
                         <h3>About Me</h3>
                         <p>

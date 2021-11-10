@@ -6,6 +6,12 @@
     .box a i {
         margin-right: 2px;
     }
+    .detail-page {
+        overflow: hidden;
+    }
+    .about-me {
+        text-align: center;
+    }
 }
 
 /* Ipad Pro */
@@ -16,12 +22,32 @@
     .product__head {
         height: calc(461px - 66px);
     }
+    .detail-page {
+        overflow: hidden;
+    }
+    .about-me {
+        text-align: center;
+    }
 }
 
 /* Mobile */
 @media (max-width: 739px) {
     .category {
         display: none;
+        z-index: 99;
+        width: 110px;
+    }
+    .category i {
+        display: none;
+    }
+    .category i.logo__icon {
+        display: block;
+    }
+    .category i.label {
+        display: block;
+    }
+    .category .box {
+        padding: 0;
     }
     .content {
         width: 100%;
@@ -32,5 +58,77 @@
     }
     .product__head {
         height: calc(306px - 66px);
+    }
+    .detail-page {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        overflow: auto;
+    }
+    .detail-container {
+        height: auto;
+        margin-bottom: 220px;
+    }
+    .detail {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .detail__img img {
+        width: 270px;
+    }
+    .detail__content {
+        height: 100%;
+        margin-top: 22px;
+    }
+    .recommend-container {
+        display: block;
+        margin-top: 420px;
+    }
+    .recommend__title {
+        margin-top: 180px;
+    }
+    label.hidden {
+        display: block;
+        font-size: 2.5rem;
+    }
+    label.open-cate {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 99;
+    }
+    label.close-cate {
+        color: #fff;
+        z-index: 999;
+        width: 30px;
+        height: 30px;
+    }
+    label.close-cate i {
+        display: block;
+        font-size: 3rem;
+        margin: 12px 38px;
+    }
+    #category-input:checked ~ .category {
+        display: flex;
+        transform: translateX(0%);
+    }
+    .category {
+        transform: translateX(-100%);
+        animation: cate_in_show 0.3s ease-in-out;
+    }
+
+    @keyframes cate_in_show {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .about-me {
+        text-align: center;
     }
 }

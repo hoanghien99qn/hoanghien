@@ -14,8 +14,8 @@ function DetailMovie(props) {
     return (
         <div className="content">
             <div className="grid">
-                <Link to="/home" className="setLink-width">
-                    <div className="backBtn">
+                <Link to="/home" className="setLink-width row">
+                    <div className="backBtn col c-12 l-12 m-12">
                         <i className="fas fa-arrow-circle-left" />
                     </div>
                 </Link>

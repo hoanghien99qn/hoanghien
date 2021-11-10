@@ -15,7 +15,7 @@ function Recommend(props) {
     const IMG_PATH = "https://www.themoviedb.org/t/p/w250_and_h141_face";
     // console.log(recommends)
     return (
-        <div>
+        <div className="recommend-container">
             <h3 className="recommend__title">Recommendations</h3>
             <div className="recommend scroll">
                 {recommends && recommends.map(recommend => (
