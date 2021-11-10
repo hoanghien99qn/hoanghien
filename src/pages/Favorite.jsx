@@ -8,7 +8,6 @@ function Favorite() {
     const { favorites } = useContext(FavoriteContext)
     const [list, setList] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    console.log(favorites)
 
     useEffect(() => {
         const getFavoriteList = async () => {

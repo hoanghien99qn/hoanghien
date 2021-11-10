@@ -1,21 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import Pagination from '../components/Pagination';
-import Products from '../components/Products';
-import Loading from '../components/Loading';
+import React, { useEffect, useState, useRef } from 'react'
+import Footer from '../components/Footer'
+import Header from '../components/Header'
+import Pagination from '../components/Pagination'
+import Products from '../components/Products'
+import Loading from '../components/Loading'
 
-import tmdbApi, { movieType } from '../api/tmdbApi';
+import tmdbApi, { movieType } from '../api/tmdbApi'
+import { useParams } from 'react-router'
 
 
 function Home(props) {
     const genre = props.location.id
+    const pathname = props.location.pathname
+    let prePathname = useRef()
+    let type = null
+    const { query } = useParams()
 
     const [list, setList] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
-    const [query, setQuery] = useState(undefined)
+
+    switch (pathname) {
+        case "/home/top_rated":
+            type = movieType.top_rated
+            break
+        case "/home/upcoming":
+            type = movieType.upcoming
+            break
+        default:
+            type = movieType.popular
+    }
 
     // let API_URL = query !== "" ? `https://api.themoviedb.org/3/search/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1&query=${query}` :
     //     `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=${page}${genre ? "&with_genres=" + genre : ""}`;
@@ -24,15 +39,22 @@ function Home(props) {
         const getList = async () => {
             try {
                 let response = null
+                let params = {}
                 setIsLoading(true)
+                if (prePathname.current !== pathname) {
+                    setPage(1)
+                }
                 if (query === undefined) {
-                    const params = {
+                    params = {
                         page: page,
                         with_genres: genre
                     }
-                    response = await tmdbApi.getMovieList(movieType.popular, { params })
+
+                    response = await tmdbApi.getMovieList(type, { params })
+
+
                 } else {
-                    const params = {
+                    params = {
                         page: page,
                         with_genres: genre,
                         query: query,
@@ -42,21 +64,43 @@ function Home(props) {
                 setList(response.results)
                 setTotalPages(response.total_pages)
                 setIsLoading(false)
+                prePathname.current = pathname
             } catch (error) {
                 console.log(error.massage)
             }
         }
         getList()
-    }, [genre, query, page])
+    }, [genre, query, page, type, pathname])
+
+    // useEffect(() => {
+    //     const changePathName = async () => {
+    //         try {
+    //             let response = null
+    //             setIsLoading(true)
+    //             const params = {
+    //                 page: 1,
+    //                 with_genres: genre,
+    //                 query: undefined
+    //             }
+    //             response = await tmdbApi.getMovieList(type, { params })
+    //             setList(response.results)
+    //             setTotalPages(response.total_pages)
+    //             setIsLoading(false)
+    //         } catch (error) {
+    //             console.log(error.massage)
+    //         }
+    //     }
+    //     changePathName()
+    // }, [type])
 
     const handlePageChange = (newPage) => {
         setPage(newPage)
     }
 
-    const handleSearch = searchTerm => {
-        if (searchTerm === '') return setQuery(undefined)
-        setQuery(searchTerm)
-    }
+    // const handleSearch = searchTerm => {
+    //     if (searchTerm === '') return setQuery(undefined)
+    //     setQuery(searchTerm)
+    // }
 
     return (
         <div className="content">
@@ -64,7 +108,7 @@ function Home(props) {
                 {/* Header */}
                 <div className="row">
                     <div className="col l-12 m-12 c-12">
-                        <Header onSearch={handleSearch} />
+                        <Header query={query} />
                     </div>
                 </div>
                 {/* Product */}

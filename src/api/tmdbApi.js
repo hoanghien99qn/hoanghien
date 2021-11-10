@@ -6,6 +6,7 @@ export const movieType = {
     upcoming: 'upcoming'
 }
 
+
 const tmdbApi = {
     getMovieList: (type, params) => {
         const url = 'movie/' + movieType[type]

@@ -1,44 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router'
 
 function Header(props) {
-    const { onSearch } = props
     const [searchTerm, setSearchTerm] = useState('')
     const history = useHistory()
+
+    useEffect(() => {
+        setSearchTerm(props.query ? props.query : '')
+    }, [props.query])
 
     const handleSubmit = e => {
         e.preventDefault()
         let a = ""
         if (searchTerm.trim().length > 0) {
             a = searchTerm.replace(/\s/g, '+')
-            history.push(`/search/query=${searchTerm}`);
-            // console.log(history)
+            history.push(`/search/${a}`)
         }
-        onSearch(a)
     }
-
-    // const goToSearch = useCallback(
-    //     () => {
-    //         if (searchTerm.trim().length > 0) {
-    //             history.push(`/search/${searchTerm}`);
-    //         }
-    //     },
-    //     [searchTerm, history]
-    // );
-
-    // useEffect(() => {
-    //     const enterEvent = (e) => {
-    //         e.preventDefault();
-    //         onSearch(searchTerm)
-    //         if (e.keyCode === 13) {
-    //             goToSearch();
-    //         }
-    //     }
-    //     document.addEventListener('keyup', enterEvent);
-    //     return () => {
-    //         document.removeEventListener('keyup', enterEvent);
-    //     };
-    // }, [searchTerm, goToSearch]);
 
     return (
         <div className="header">
